@@ -45,10 +45,7 @@ public class KafkaListener implements Runnable {
 			for (ConsumerRecord<String, Product> message : messages) {
 				Product createdProduct = message.value();
 
-				// Stock up on 10 copies of the new product
-				LongParam productId = new LongParam(String.valueOf(createdProduct.getId()));
-				IntParam amount = new IntParam("10");
-				this.warehouseResource.updateProductAvailability(productId, amount);
+				// TODO Ex3, Task3: Increase the available amount of the new product to 10 using 'this.warehouseResource.updateProductAvailability()'
 			}
 		}
 	}

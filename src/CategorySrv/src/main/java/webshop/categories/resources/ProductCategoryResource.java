@@ -31,6 +31,8 @@ import webshop.categories.db.ProductCategoryRepository;
 @Path("/categories")
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductCategoryResource {
+	// TODO Ex2, Task1: Replace this class with category resource class from the ProductSrv
+
 	private ProductCategoryRepository categoryRepository;
 	private Logger log;
 
@@ -38,57 +40,6 @@ public class ProductCategoryResource {
 		this.categoryRepository = repository;
 		this.log = LoggerFactory.getLogger(ProductCategoryResource.class);
 		log.info("ProductCategoryResource instantiated...");
-	}
-
-	@GET
-	@Timed
-	public List<ProductCategory> getCategories(@QueryParam("limit") @DefaultValue("20") IntParam limit) {
-		final List<ProductCategory> categories = categoryRepository.search(limit.get());
-
-		return categories;
-	}
-
-	@Path("/{id}")
-	@GET
-	@Timed
-	public ProductCategory getCategoryById(@PathParam("id") LongParam categoryId) {
-		final ProductCategory category = categoryRepository.getById(categoryId.get());
-
-		if (category == null) {
-			final String msg = String.format("Category with ID %d does not exist...", categoryId.get());
-			throw new WebApplicationException(msg, Status.NOT_FOUND);
-		}
-
-		return category;
-	}
-
-	@POST
-	@Timed
-	public BaseResponse createCategory(@NotNull @Valid ProductCategory category) {
-		final ProductCategory createdCategory = categoryRepository.store(category);
-
-		return new BaseResponse("OK", 201, "Category with ID " + createdCategory.getId() + " successfully created.");
-	}
-
-	@Path("/{id}")
-	@PUT
-	@Timed
-	public BaseResponse updateCategory(@PathParam("id") LongParam categoryId,
-			@NotNull @Valid ProductCategory category) {
-		final ProductCategory updatedCategory = categoryRepository.update(categoryId.get(), category);
-
-		return new BaseResponse("OK", 204, "Category with ID " + updatedCategory.getId() + " successfully updated.");
-	}
-
-	@Path("/{id}")
-	@DELETE
-	@Timed
-	public BaseResponse deleteCategory(@PathParam("id") LongParam categoryId) {
-		final boolean deleted = categoryRepository.deleteById(categoryId.get());
-
-		return new BaseResponse(deleted ? "OK" : "FAILED", deleted ? 202 : 400,
-				deleted ? "Category with ID " + categoryId.get() + " successfully deleted."
-						: "Failed to delete category with ID " + categoryId.get() + ".");
 	}
 
 }
