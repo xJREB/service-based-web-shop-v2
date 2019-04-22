@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import webshop.categories.db.ProductCategoryRepository;
 import webshop.categories.health.StandardHealthCheck;
 import webshop.categories.resources.ProductCategoryResource;
@@ -55,6 +56,8 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
 
 		environment.healthChecks().register("template", healthCheck);
 		environment.jersey().register(categoryResource);
+		// Register OpenAPI endpoint
+		environment.jersey().register(new OpenApiResource());
 	}
 
 }

@@ -15,6 +15,7 @@ import io.dropwizard.Application;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import webshop.products.health.StandardHealthCheck;
 import webshop.products.resources.ProductFacadeResource;
 
@@ -54,6 +55,8 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
 
 		environment.healthChecks().register("template", healthCheck);
 		environment.jersey().register(productFacadeResource);
+		// Register OpenAPI endpoint
+		environment.jersey().register(new OpenApiResource());
 	}
 
 }
