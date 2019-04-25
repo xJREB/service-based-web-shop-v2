@@ -16,6 +16,7 @@ import io.dropwizard.Application;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import webshop.notifications.db.MailRepository;
 import webshop.notifications.health.StandardHealthCheck;
 import webshop.notifications.messaging.KafkaListener;
@@ -66,6 +67,8 @@ public class ServiceApplication extends Application<ServiceConfiguration> {
 
 		environment.healthChecks().register("template", healthCheck);
 		environment.jersey().register(notificationResource);
+		// Register OpenAPI endpoint
+		environment.jersey().register(new OpenApiResource());
 	}
 
 }

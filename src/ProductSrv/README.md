@@ -11,3 +11,8 @@ Health Check
 ---
 
 To see your applications health enter url `http://localhost:8051/healthcheck` (port can be adjusted in `config.yml`)
+
+OpenAPI Endpoint
+---
+
+The OpenAPI documentation for all REST resources is available at `http://localhost:8050/openapi.json` or `http://localhost:8050/openapi.yaml`.
